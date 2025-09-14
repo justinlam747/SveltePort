@@ -1,9 +1,18 @@
 <script>
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
-	import { loadPersonalInfo } from '$lib/utils/cms.js';
 
-	let personalInfo = {};
+	// Static personal info
+	const personalInfo = {
+		name: "Justin",
+		email: "jhylam@uwaterloo.ca",
+		phone: "",
+		location: "Waterloo, ON",
+		social: {
+			linkedin: "https://linkedin.com/in/justinlam747",
+			github: "https://github.com/justinlam747"
+		}
+	};
 	let formData = {
 		name: '',
 		email: '',
@@ -26,8 +35,6 @@
 	}
 
 	onMount(async () => {
-		personalInfo = await loadPersonalInfo();
-		
 		// Page entrance animation
 		gsap.timeline()
 			.fromTo('.contact-content', 

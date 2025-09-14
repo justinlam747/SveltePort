@@ -1,6 +1,6 @@
 # Justin's Portfolio
 
-A modern, responsive portfolio website built with SvelteKit, GSAP animations, Tailwind CSS, and Netlify CMS.
+A modern, responsive portfolio website built with SvelteKit, GSAP animations, and Tailwind CSS.
 
 ## Features
 
@@ -8,7 +8,7 @@ A modern, responsive portfolio website built with SvelteKit, GSAP animations, Ta
 - 🚀 **SvelteKit**: Fast, modern web framework
 - ✨ **GSAP Animations**: Smooth, professional animations and transitions
 - 🎯 **Tailwind CSS**: Utility-first CSS framework for rapid styling
-- 📝 **Netlify CMS**: Easy content management for projects and personal info
+- 📝 **Static Data**: Easy project management with shared data source
 - 📱 **Responsive**: Works perfectly on all devices
 - 🔍 **Project Modals**: Detailed project views with technology stacks and project trees
 - 🌟 **Interactive**: Hover effects and smooth transitions
@@ -24,7 +24,7 @@ src/
 │   │   ├── ProjectGrid.svelte
 │   │   └── ProjectModal.svelte
 │   └── utils/
-│       └── cms.js
+│       └── projects.js
 ├── routes/
 │   ├── +layout.svelte
 │   ├── +page.svelte
@@ -56,25 +56,24 @@ src/
 
 ## Content Management
 
-### Netlify CMS Setup
+### Project Management
 
-1. Deploy to Netlify
-2. Enable Git Gateway in Netlify Identity
-3. Access CMS at `/admin`
-4. Configure authentication
+1. Edit projects in `src/lib/data/projects.js`
+2. Add project images to `static/images/`
+3. Push changes to trigger automatic deployment
 
 ### Adding Projects
 
-Projects can be managed through:
-- Netlify CMS interface at `/admin`
-- Direct markdown files in `src/content/projects/`
+Projects are managed through:
+- Static data file: `src/lib/data/projects.js`
+- Single source of truth for both landing and works pages
 
 Each project includes:
 - Title and subtitle
 - Description and category
 - Technologies used
-- Project tree structure
-- Build process details
+- Image filename
+- External link (GitHub/live demo)
 - Demo and source URLs
 
 ## Customization
@@ -91,12 +90,12 @@ Edit `tailwind.config.js` to customize:
 
 Update personal information in:
 - `src/content/personal.yml`
-- Netlify CMS admin interface
+- Static data management
 
 ### Projects
 
 Add new projects via:
-- Netlify CMS admin interface
+- Static data management
 - Manual markdown files in `src/content/projects/`
 
 ## Technologies Used
@@ -104,13 +103,13 @@ Add new projects via:
 - **SvelteKit** - Web framework
 - **GSAP** - Animations
 - **Tailwind CSS** - Styling
-- **Netlify CMS** - Content management
+- **Static Data** - Project management
 - **Vite** - Build tool
 
 ## Deployment
 
 This project is optimized for deployment on:
-- Netlify (recommended for CMS integration)
+- Netlify (recommended)
 - Vercel
 - Any static hosting service
 

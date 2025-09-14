@@ -2,18 +2,13 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-	import { loadProjects } from '$lib/utils/cms.js';
 
 	export let projects = []; // Accept projects as prop from server-side loading
 	let projectRefs = [];
 	let scrollTriggerInstance;
 	let hoverAnimations = [];
 
-	// Load projects from CMS (fallback if not provided via props)
 	onMount(async () => {
-		if (!projects || projects.length === 0) {
-			projects = await loadProjects();
-		}
 		
 		// Register ScrollTrigger plugin
 		gsap.registerPlugin(ScrollTrigger);
