@@ -2,20 +2,8 @@
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
 	import ProjectGrid from '$lib/components/ProjectGrid.svelte';
-	import ProjectModal from '$lib/components/ProjectModal.svelte';
+	import { projects } from '$lib/data/projects.js';
 
-	let selectedProject = null;
-	let showModal = false;
-
-	function openProject(event) {
-		selectedProject = event.detail;
-		showModal = true;
-	}
-
-	function closeModal() {
-		showModal = false;
-		selectedProject = null;
-	}
 
 	onMount(() => {
 		// Page entrance animation
@@ -28,26 +16,22 @@
 </script>
 
 <svelte:head>
-	<title>Works - Abo</title>
+	<title>Works - Justin</title>
 </svelte:head>
 
 <div class="pt-32 pb-20">
 	<div class="max-w-6xl mx-auto px-6">
 		<div class="works-content">
-			<div class="text-center mb-16">
+			<div class="text-start mb-16">
 				<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">My Works</h1>
-				<p class="text-xl text-gray-600 max-w-2xl mx-auto">
+				<p class="text-xl text-gray-600 max-w-2xl ">
 					A collection of projects that showcase my expertise in product design, 
 					user experience, and creative problem-solving.
 				</p>
 			</div>
 
-			<ProjectGrid on:openProject={openProject} />
+			<ProjectGrid {projects} />
 		</div>
 	</div>
 </div>
 
-<!-- Project Modal -->
-{#if showModal && selectedProject}
-	<ProjectModal project={selectedProject} on:close={closeModal} />
-{/if}

@@ -5,8 +5,8 @@
 	let navItems = [
 		{ name: 'Home', href: '/' },
 		{ name: 'About', href: '/about' },
-		{ name: 'Works', href: '/works' },
-		{ name: 'Contact', href: '/contact' }
+		{ name: 'Projects', href: '/works' },
+		
 	];
 
 	onMount(() => {
@@ -22,11 +22,13 @@
 		<div class="flex items-center justify-between">
 			<!-- Logo -->
 			<div class="nav-item">
-				<a href="/" class="flex items-center space-x-2">
-					<div class="w-8 h-8 bg-primary-400 rounded-full flex items-center justify-center">
-						<span class="text-white font-bold text-sm">A</span>
+				<a href="/" class="flex items-center space-x-3 group">
+					<div class="relative">
+						<div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300 group-hover:scale-110"></div>
+						<div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-transparent rounded-full opacity-50"></div>
+						<div class="absolute top-2 left-2 w-2 h-2 bg-white/30 rounded-full"></div>
 					</div>
-					<span class="font-semibold text-gray-900">ABO</span>
+					
 				</a>
 			</div>
 

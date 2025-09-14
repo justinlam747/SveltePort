@@ -1,60 +1,62 @@
 <script>
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
-	import { loadPersonalInfo } from '$lib/utils/cms.js';
 
-	let personalInfo = {};
+	export let data; // Server-side loaded data
+	$: personalInfo = data.personalInfo || {};
 
-	onMount(async () => {
-		personalInfo = await loadPersonalInfo();
+	onMount(() => {
 		
-		// Page entrance animation
+		// Page entrance animation - staggered reveal
 		gsap.timeline()
-			.fromTo('.about-content', 
+			.fromTo('.about-header', 
 				{ opacity: 0, y: 30 }, 
 				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+			)
+			.fromTo('.skills-section', 
+				{ opacity: 0, y: 30 }, 
+				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 
+				'-=0.4'
+			)
+			.fromTo('.tools-section', 
+				{ opacity: 0, y: 30 }, 
+				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 
+				'-=0.4'
 			);
 	});
 </script>
 
 <svelte:head>
-	<title>About - Abo</title>
+	<title>About - Justin</title>
 </svelte:head>
 
 <div class="pt-32 pb-20">
-	<div class="max-w-4xl mx-auto px-6">
+	<div class="max-w-6xl mx-auto px-6">
 		<div class="about-content">
-			<div class="text-center mb-16">
-				<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">About Me</h1>
-				<p class="text-xl text-gray-600 max-w-2xl mx-auto">
-					{personalInfo.bio || 'Loading...'}
-				</p>
+			<!-- About Me Section -->
+			<div class="about-header mb-16">
+				<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 text-left">About Me</h1>
+				<div class="space-y-4 text-gray-600 text-lg leading-relaxed">
+					<p>
+						I'm passionate about leveraging data, technology, and design to create impactful solutions. I am currently learning spatial and numerical data analysis with GIS, while also building software and SaaS products that turn tedious problems into simple experiences.
+					</p>
+					
+					<p>
+					Outside of work, I love exploring new experiences, whether it’s trying a new cuisine, working on my golf swing, or planning my next travel adventure. I got into cafés while traveling in Korea and now I'm looking for new spots around Toronto. If you’re ever in town, feel free to reach out - lets grab a cup of coffee!
+					</p>
+				</div>
 			</div>
 
-			<div class="grid lg:grid-cols-2 gap-16 items-center">
-				<div class="space-y-6">
-					<h2 class="text-2xl font-bold text-gray-900">My Journey</h2>
-					<div class="space-y-4 text-gray-600">
-						<p>
-							With over 7 years of experience in product design, I've had the privilege of working 
-							with startups and established companies to create meaningful digital experiences.
-						</p>
-						<p>
-							My approach combines user research, design thinking, and technical understanding 
-							to deliver solutions that not only look great but also solve real problems.
-						</p>
-						<p>
-							I believe in the power of design to create positive impact and am passionate about 
-							building products that make people's lives better.
-						</p>
-					</div>
-				</div>
-
-				<div class="space-y-8">
-					<div>
-						<h3 class="text-lg font-semibold text-gray-900 mb-4">Skills & Expertise</h3>
-						<div class="grid grid-cols-2 gap-4">
-							{#each ['UI/UX Design', 'Product Strategy', 'User Research', 'Prototyping', 'Design Systems', 'Frontend Development'] as skill}
+			<!-- Skills & Expertise Section -->
+			<div class="skills-section mb-16">
+				<h2 class="text-3xl font-bold text-gray-900 mb-8 text-left">Skills & Expertise</h2>
+				
+				<div class="grid md:grid-cols-3 gap-8">
+					<!-- Frontend Development & SaaS -->
+					<div class="card p-6">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 text-left">Frontend Development & SaaS</h3>
+						<div class="space-y-3">
+							{#each ['React/JavaScript', 'UI/UX Design', 'SaaS Product Design', 'REST API Integration'] as skill}
 								<div class="bg-gray-50 rounded-lg p-3 text-center">
 									<span class="text-sm font-medium text-gray-700">{skill}</span>
 								</div>
@@ -62,14 +64,72 @@
 						</div>
 					</div>
 
-					<div>
-						<h3 class="text-lg font-semibold text-gray-900 mb-4">Tools I Use</h3>
-						<div class="flex flex-wrap gap-3">
-							{#each ['Figma', 'Sketch', 'Adobe Creative Suite', 'Principle', 'Framer', 'React', 'Vue.js', 'Svelte'] as tool}
-								<span class="bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-sm font-medium">
-									{tool}
-								</span>
+					<!-- Data  -->
+					<div class="card p-6">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 text-left">Data Analytics</h3>
+						<div class="space-y-3">
+							{#each ['Spatial Data Analysis', 'Python Analytics', 'Power BI Dashboards', 'Data Visualization'] as skill}
+								<div class="bg-gray-50 rounded-lg p-3 text-center">
+									<span class="text-sm font-medium text-gray-700">{skill}</span>
+								</div>
 							{/each}
+						</div>
+					</div>
+
+					<!-- Marketing with Organic Growth -->
+					<div class="card p-6">
+						<h3 class="text-lg font-semibold text-gray-900 mb-4 text-left">Marketing with Organic Growth</h3>
+						<div class="space-y-3">
+							{#each ['Content Strategy', 'SEO Optimization', 'Brand Development', 'User Acquisition'] as skill}
+								<div class="bg-gray-50 rounded-lg p-3 text-center">
+									<span class="text-sm font-medium text-gray-700">{skill}</span>
+								</div>
+							{/each}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Tools & Technologies Section -->
+			<div class="tools-section mb-16">
+				<h2 class="text-3xl font-bold text-gray-900 mb-8 text-left">Tools & Technologies</h2>
+				
+				<div class="card p-6">
+					<div class="grid md:grid-cols-3 gap-8">
+						<!-- Programming Languages -->
+						<div>
+							<h3 class="text-lg font-semibold text-gray-900 mb-4 text-left">Programming</h3>
+							<div class="flex flex-wrap gap-2">
+								{#each ['Python', 'JavaScript', 'Java', 'SQL', 'C', 'C++', 'HTML', ] as lang}
+									<span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+										{lang}
+									</span>
+								{/each}
+							</div>
+						</div>
+
+						<!-- Frameworks & Tools -->
+						<div>
+							<h3 class="text-lg font-semibold text-gray-900 mb-4 text-left">Frameworks & Tools</h3>
+							<div class="flex flex-wrap gap-2">
+								{#each ['React', 'Node.js', 'Flask', 'Tailwind', 'Git/GitHub', 'Docker'] as tool}
+									<span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+										{tool}
+									</span>
+								{/each}
+							</div>
+						</div>
+
+						<!-- Data & Analytics -->
+						<div>
+							<h3 class="text-lg font-semibold text-gray-900 mb-4 text-left">Data & Analytics</h3>
+							<div class="flex flex-wrap gap-2">
+								{#each ['MongoDB', 'Power BI', 'Pandas', 'NumPy', 'Excel', 'REST APIs'] as tech}
+									<span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+										{tech}
+									</span>
+								{/each}
+							</div>
 						</div>
 					</div>
 				</div>

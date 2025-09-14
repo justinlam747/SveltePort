@@ -3,20 +3,11 @@
 	import { gsap } from 'gsap';
 	import HeroSection from '$lib/components/HeroSection.svelte';
 	import ProjectGrid from '$lib/components/ProjectGrid.svelte';
-	import ProjectModal from '$lib/components/ProjectModal.svelte';
+	import { projects as allProjects } from '$lib/data/projects.js';
 
-	let selectedProject = null;
-	let showModal = false;
+	// Show first 4 projects from the shared projects data
+	const projects = allProjects.slice(0, 4);
 
-	function openProject(event) {
-		selectedProject = event.detail;
-		showModal = true;
-	}
-
-	function closeModal() {
-		showModal = false;
-		selectedProject = null;
-	}
 
 	onMount(() => {
 		// Page entrance animation
@@ -34,7 +25,8 @@
 </script>
 
 <svelte:head>
-	<title>Abo - Product Designer Portfolio</title>
+	<title>Justin | Software Developer Portfolio</title>
+	<meta name="description" content="Welcome to Justin's portfolio - featuring innovative software projects and engineering solutions." />
 </svelte:head>
 
 <div class="pt-20">
@@ -44,22 +36,11 @@
 	</section>
 
 	<!-- Projects Section -->
-	<section class="projects-section py-20">
-		<div class="max-w-6xl mx-auto px-6">
-			<div class="text-center mb-16">
-				<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured Works</h2>
-				<p class="text-gray-600 max-w-2xl mx-auto">
-					A collection of projects showcasing my expertise in product design, 
-					user experience, and creative problem-solving.
-				</p>
-			</div>
-			
-			<ProjectGrid on:openProject={openProject} />
+	<section class="projects-section py-8">
+		
+		<div class="w-full px-8">
+			<ProjectGrid {projects} />
 		</div>
 	</section>
 </div>
 
-<!-- Project Modal -->
-{#if showModal && selectedProject}
-	<ProjectModal project={selectedProject} on:close={closeModal} />
-{/if}

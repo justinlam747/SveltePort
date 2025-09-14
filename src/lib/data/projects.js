@@ -1,0 +1,75 @@
+// Complete project portfolio - single source of truth
+export const projects = [
+	{
+		id: 1,
+		title: 'GlazingGorillaGames',
+		subtitle: 'Client Project – 2025',
+		description: 'Scaled Roblox games like Consume to 30M+ plays and $75K+ revenue by analyzing player retention and engagement metrics.',
+		image: 'GlazingGorillaGames.png',
+		color: 'bg-gradient-to-br from-blue-400 to-blue-600',
+		technologies: ['React', 'Tailwind', 'Render', 'Axios', 'ExpressJS', 'SQL'],
+		category: 'Full Stack Development',
+		year: '2025',
+		link: 'https://glazinggorillagames.com/'
+	},
+	{
+		id: 2,
+		title: 'GPAConnect',
+		subtitle: 'Personal Project – 2025',
+		description: 'Built a GPA tracking platform with secure authentication, course management, and automatic GPA calculation.',
+		image: 'GPAConnect.png',
+		color: 'bg-gradient-to-br from-green-400 to-green-600',
+		technologies: ['React', 'MongoDB', 'Express', 'Node.js', 'JWT', 'bcrypt.js', 'Recharts'],
+		category: 'Full Stack Web App',
+		year: '2025',
+		link: 'https://www.gpaconnect.me/'
+	},
+	{
+		id: 3,
+		title: 'Pacman Clone',
+		subtitle: 'Course Project – 2025',
+		description: 'Developed a console-based Pacman clone in C with dynamic map loading, memory allocation, and error handling.',
+		image: 'Pacman1.png',
+		color: 'bg-gradient-to-br from-yellow-400 to-yellow-600',
+		technologies: ['C', 'Memory Management', 'Unit Testing'],
+		category: 'Object Oriented Programming',
+		year: '2025',
+		link: 'https://github.com/justinlam747/APSC142-Pacman'
+	},
+	{
+		id: 4,
+		title: 'Plant Incubator',
+		subtitle: 'MakeUofT Hackathon – 2025',
+		description: 'Created an automated plant-care system with Flask APIs for data collection and retrieval.',
+		image: 'Plant.jpg',
+		color: 'bg-gradient-to-br from-emerald-400 to-emerald-600',
+		technologies: ['Python', 'OpenCV', 'Arduino', 'Flask', 'MongoDB'],
+		category: 'IoT & Computer Vision',
+		year: '2025',
+		link: 'https://devpost.com/software/wateryoudoing-cjnzhp'
+	},
+	{
+		id: 5,
+		title: 'Water Treatment Plant',
+		subtitle: 'Course Project – 2024',
+		description: 'Designed a servo-driven aluminum sulfate dispensing assembly to improve water purification.',
+		image: 'WaterFiltration.jpg',
+		color: 'bg-gradient-to-br from-blue-400 to-cyan-500',
+		technologies: ['Arduino IDE', 'Servo Motors', 'Control Systems'],
+		category: 'Automation & Control',
+		year: '2024',
+		link: 'https://github.com/justinlam747'
+	},
+	{
+		id: 6,
+		title: 'EdgeHacks Hackathon',
+		subtitle: 'Hackathon Director – 2023',
+		description: 'Built a responsive event website, boosting participant engagement by 40%.',
+		image: 'EdgeHacks2.png',
+		color: 'bg-gradient-to-br from-indigo-400 to-indigo-600',
+		technologies: ['HTML', 'CSS', 'Event Leadership', 'Project Management'],
+		category: 'Event Leadership & Development',
+		year: '2023',
+		link: 'https://github.com/justinlam747'
+	}
+];

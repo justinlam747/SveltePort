@@ -1,30 +1,35 @@
 <script>
-	import { onMount, createEventDispatcher } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { loadProjects } from '$lib/utils/cms.js';
 
-	const dispatch = createEventDispatcher();
-
-	let projects = [];
+	export let projects = []; // Accept projects as prop from server-side loading
 	let projectRefs = [];
+	let scrollTriggerInstance;
+	let hoverAnimations = [];
 
-	// Load projects from CMS
+	// Load projects from CMS (fallback if not provided via props)
 	onMount(async () => {
-		projects = await loadProjects();
+		if (!projects || projects.length === 0) {
+			projects = await loadProjects();
+		}
 		
 		// Register ScrollTrigger plugin
 		gsap.registerPlugin(ScrollTrigger);
 		
-		// Animate project cards on scroll
-		gsap.fromTo('.project-card', 
-			{ opacity: 0, y: 50, scale: 0.9 }, 
+		// Animate project cards on scroll with blur and slide up
+		scrollTriggerInstance = gsap.fromTo('.project-card', 
 			{ 
-				opacity: 1, 
-				y: 0, 
-				scale: 1,
-				duration: 0.6, 
-				stagger: 0.2, 
+				y: 60,
+				filter: 'blur(5px)',
+				opacity: 0
+			}, 
+			{ 
+				y: 0,
+				filter: 'blur(0px)',
+				opacity: 1,
+				duration: 0.2, 
 				ease: 'power2.out',
 				scrollTrigger: {
 					trigger: '.projects-grid',
@@ -38,185 +43,118 @@
 		// Hover animations for project cards
 		projectRefs.forEach((ref, index) => {
 			if (ref) {
-				ref.addEventListener('mouseenter', () => {
-					gsap.to(ref, { scale: 1.05, duration: 0.3, ease: 'power2.out' });
-				});
+				const handleMouseEnter = () => {
+					const tween = gsap.to(ref, { scale: 1.05, duration: 0.3, ease: 'power2.out' });
+					hoverAnimations.push(tween);
+				};
 				
-				ref.addEventListener('mouseleave', () => {
-					gsap.to(ref, { scale: 1, duration: 0.3, ease: 'power2.out' });
-				});
+				const handleMouseLeave = () => {
+					const tween = gsap.to(ref, { scale: 1, duration: 0.3, ease: 'power2.out' });
+					hoverAnimations.push(tween);
+				};
+
+				ref.addEventListener('mouseenter', handleMouseEnter);
+				ref.addEventListener('mouseleave', handleMouseLeave);
+				
+				// Store references for cleanup
+				ref._hoverListeners = { handleMouseEnter, handleMouseLeave };
 			}
 		});
 	});
 
-	// Sample projects data (fallback)
-	let fallbackProjects = [
-		{
-			id: 1,
-			title: 'Flop App',
-			subtitle: 'Social media for poker players',
-			description: 'A comprehensive social platform designed specifically for poker enthusiasts, featuring game tracking, community features, and tournament management.',
-			image: '/api/placeholder/400/300',
-			color: 'gradient-purple',
-			technologies: ['React Native', 'Node.js', 'PostgreSQL', 'Socket.io'],
-			category: 'Mobile App',
-			year: '2023',
-			projectTree: {
-				structure: [
-					'Frontend (React Native)',
-					'├── Components',
-					'├── Screens',
-					'├── Navigation',
-					'└── Utils',
-					'Backend (Node.js)',
-					'├── API Routes',
-					'├── Database Models',
-					'├── Authentication',
-					'└── Real-time Features'
-				],
-				buildProcess: 'Built using agile methodology with weekly sprints, focusing on user feedback and iterative improvements.'
-			}
-		},
-		{
-			id: 2,
-			title: 'Landscape',
-			subtitle: 'Lend and Borrow Dashboard',
-			description: 'A sophisticated financial dashboard for peer-to-peer lending and borrowing, featuring real-time analytics and risk assessment tools.',
-			image: '/api/placeholder/400/300',
-			color: 'gradient-dark',
-			technologies: ['Vue.js', 'Python', 'FastAPI', 'MongoDB'],
-			category: 'Web Application',
-			year: '2023',
-			projectTree: {
-				structure: [
-					'Frontend (Vue.js)',
-					'├── Dashboard Components',
-					'├── Chart Libraries',
-					'├── Form Validation',
-					'└── State Management',
-					'Backend (Python/FastAPI)',
-					'├── API Endpoints',
-					'├── Data Processing',
-					'├── Risk Algorithms',
-					'└── Security Layer'
-				],
-				buildProcess: 'Developed with a focus on financial security and regulatory compliance, using test-driven development.'
-			}
-		},
-		{
-			id: 3,
-			title: 'Tribe.so Admin',
-			subtitle: 'Community Management Platform',
-			description: 'An advanced admin interface for community management, providing tools for moderation, analytics, and user engagement.',
-			image: '/api/placeholder/400/300',
-			color: 'bg-gray-100',
-			technologies: ['React', 'TypeScript', 'GraphQL', 'PostgreSQL'],
-			category: 'Admin Panel',
-			year: '2022',
-			projectTree: {
-				structure: [
-					'Frontend (React/TypeScript)',
-					'├── Admin Components',
-					'├── Data Visualization',
-					'├── User Management',
-					'└── Moderation Tools',
-					'Backend (GraphQL)',
-					'├── Schema Definition',
-					'├── Resolvers',
-					'├── Database Layer',
-					'└── Authentication'
-				],
-				buildProcess: 'Built with scalability in mind, using microservices architecture and comprehensive testing.'
-			}
-		},
-		{
-			id: 4,
-			title: 'Promot3 Dashboard',
-			subtitle: 'Marketing Analytics Platform',
-			description: 'A comprehensive marketing dashboard providing insights into campaign performance, audience analytics, and ROI tracking.',
-			image: '/api/placeholder/400/300',
-			color: 'bg-gradient-to-br from-green-400 to-blue-500',
-			technologies: ['Angular', 'D3.js', 'Express.js', 'MySQL'],
-			category: 'Analytics Dashboard',
-			year: '2022',
-			projectTree: {
-				structure: [
-					'Frontend (Angular)',
-					'├── Dashboard Widgets',
-					'├── Data Visualization (D3.js)',
-					'├── Report Generation',
-					'└── User Interface',
-					'Backend (Express.js)',
-					'├── API Services',
-					'├── Data Aggregation',
-					'├── Report Engine',
-					'└── Database Integration'
-				],
-				buildProcess: 'Developed using component-driven development with extensive data visualization requirements.'
-			}
+	onDestroy(() => {
+		// Clean up ScrollTrigger instances
+		if (scrollTriggerInstance && scrollTriggerInstance.scrollTrigger) {
+			scrollTriggerInstance.scrollTrigger.kill();
 		}
-	];
+		ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+		
+		// Clean up hover animations
+		hoverAnimations.forEach(tween => {
+			if (tween) tween.kill();
+		});
+		
+		// Remove event listeners
+		projectRefs.forEach(ref => {
+			if (ref && ref._hoverListeners) {
+				ref.removeEventListener('mouseenter', ref._hoverListeners.handleMouseEnter);
+				ref.removeEventListener('mouseleave', ref._hoverListeners.handleMouseLeave);
+			}
+		});
+		
+		// Clear arrays
+		hoverAnimations = [];
+		projectRefs = [];
+	});
 
-	function openProject(project) {
-		dispatch('openProject', project);
-	}
 </script>
 
-<div class="projects-grid grid md:grid-cols-2 gap-8">
+<div class="projects-grid grid md:grid-cols-2 gap-8 max-w-6xl mx-auto ">
 	{#each projects as project, index}
-		<div 
+		<a 
 			bind:this={projectRefs[index]}
-			class="project-card card cursor-pointer group"
-			on:click={() => openProject(project)}
-			on:keydown={(e) => e.key === 'Enter' && openProject(project)}
-			role="button"
-			tabindex="0"
+			href="{project.link || project.demo || project.github || '#'}"
+			target="{project.link && project.link.startsWith('/') ? '_self' : '_blank'}"
+			rel="{project.link && project.link.startsWith('/') ? '' : 'noopener noreferrer'}"
+			class="project-card card cursor-pointer group block"
 		>
-			<div class="relative h-64 {project.color} overflow-hidden">
-				<!-- Project Image Placeholder -->
-				<div class="w-full h-full flex items-center justify-center">
-					{#if project.id === 1}
-						<!-- Flop App Mock -->
-						<div class="relative">
-							<div class="w-32 h-56 bg-gray-900 rounded-2xl shadow-2xl transform rotate-12 group-hover:rotate-6 transition-transform duration-300">
-								<div class="p-4 space-y-3">
-									<div class="h-3 bg-purple-400 rounded"></div>
-									<div class="space-y-2">
-										<div class="h-2 bg-gray-600 rounded w-3/4"></div>
-										<div class="h-2 bg-gray-600 rounded w-1/2"></div>
-									</div>
-									<div class="h-16 bg-purple-500/20 rounded"></div>
-									<div class="space-y-1">
-										<div class="h-2 bg-gray-600 rounded"></div>
-										<div class="h-2 bg-gray-600 rounded w-2/3"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					{:else if project.id === 2}
-						<!-- Landscape Dashboard Mock -->
-						<div class="w-48 h-32 bg-gray-800 rounded-lg p-4 group-hover:scale-105 transition-transform duration-300">
-							<div class="space-y-2">
-								<div class="flex justify-between items-center">
-									<div class="h-2 bg-cyan-400 rounded w-16"></div>
-									<div class="h-2 bg-gray-600 rounded w-8"></div>
-								</div>
-								<div class="h-1 bg-gray-600 rounded w-full"></div>
-								<div class="h-8 bg-cyan-500/20 rounded"></div>
-								<div class="flex space-x-2">
-									<div class="h-2 bg-gray-600 rounded flex-1"></div>
-									<div class="h-2 bg-gray-600 rounded flex-1"></div>
-								</div>
-							</div>
-						</div>
-					{:else}
-						<!-- Generic project placeholder -->
-						<div class="w-32 h-32 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-							<svg class="w-12 h-12 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-							</svg>
-						</div>
+			<div class="relative h-96  overflow-hidden">
+				<!-- Project Image/Placeholder -->
+				<div class="w-full h-full flex items-center justify-center p-6">
+					{#if project.image && project.image !== 'default-project.png'}
+						<!-- Real project image -->
+						<img 
+							src="/images/{project.image}" 
+							alt="{project.title}"
+							class="w-full h-full object-cover rounded-2xl shadow-lg p-3 transition-transform duration-300"
+							on:error={(e) => {
+								// Fallback to placeholder if image doesn't load
+								e.target.style.display = 'none';
+								e.target.nextElementSibling.style.display = 'flex';
+							}}
+						/>
 					{/if}
+					
+					<!-- Large placeholder image for all projects -->
+					<div class="w-full h-full bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300" style="{project.image && project.image !== 'default-project.png' ? 'display: none;' : ''}">
+						<div class="text-center text-white/90">
+							<div class="w-24 h-24 mx-auto mb-6 bg-white/20 rounded-2xl flex items-center justify-center">
+								{#if project.id === 1}
+									<!-- Code/Gaming icon for GlazingGorillaGames -->
+									<svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+										<path d="M8 10h8v4H8zM12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 17.93V17h2v2.93c-3.94-.494-7-3.858-7-7.93s3.06-7.436 7-7.93v2.93H9c-1.103 0-2 .897-2 2v4c0 1.103.897 2 2 2h6c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2h-2V4.07c3.94.494 7 3.858 7 7.93s-3.06 7.436-7 7.93z"/>
+									</svg>
+								{:else if project.id === 2}
+									<!-- Chart/Analytics icon for GPAConnect -->
+									<svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+										<path d="M3 3v18h18v-2H5V3H3zm4 12h2v4H7v-4zm4-4h2v8h-2v-8zm4-4h2v12h-2V7z"/>
+									</svg>
+								{:else if project.id === 3}
+									<!-- Game controller for Pacman -->
+									<svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+										<path d="M7.97 16.06C6.93 15.42 6.25 14.25 6.25 13c0-1.25.68-2.42 1.72-3.06.37-.23.86-.06 1.09.31.23.37.06.86-.31 1.09-.52.32-.75.84-.75 1.66s.23 1.34.75 1.66c.37.23.54.72.31 1.09-.15.24-.4.37-.66.37-.14 0-.29-.04-.43-.12zM16.03 16.06c-.14.08-.29.12-.43.12-.26 0-.51-.13-.66-.37-.23-.37-.06-.86.31-1.09.52-.32.75-.84.75-1.66s-.23-1.34-.75-1.66c-.37-.23-.54-.72-.31-1.09.23-.37.72-.54 1.09-.31 1.04.64 1.72 1.81 1.72 3.06 0 1.25-.68 2.42-1.72 3.06z"/>
+									</svg>
+								{:else if project.id === 4}
+									<!-- Plant/IoT icon -->
+									<svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+										<path d="M12 2C9.24 2 7 4.24 7 7c0 1.01.29 1.95.78 2.75L12 22l4.22-12.25c.49-.8.78-1.74.78-2.75 0-2.76-2.24-5-5-5zm0 7.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+									</svg>
+								{:else if project.id === 5}
+									<!-- Engineering/Water icon -->
+									<svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+										<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+									</svg>
+								{:else}
+									<!-- Default code icon -->
+									<svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+										<path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+									</svg>
+								{/if}
+							</div>
+							<h3 class="text-xl font-bold mb-2">{project.title}</h3>
+							<p class="text-sm opacity-80">{project.category}</p>
+						</div>
+					</div>
 				</div>
 				
 				<!-- Hover overlay -->
@@ -247,7 +185,7 @@
 					<span>{project.year}</span>
 				</div>
 			</div>
-		</div>
+		</a>
 	{/each}
 </div>
 

@@ -1,4 +1,4 @@
-# Abo's Portfolio
+# Justin's Portfolio
 
 A modern, responsive portfolio website built with SvelteKit, GSAP animations, Tailwind CSS, and Netlify CMS.
 

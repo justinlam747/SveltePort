@@ -14,8 +14,8 @@
 </script>
 
 <svelte:head>
-	<title>Abo - Product Designer</title>
-	<meta name="description" content="Product designer with 7 years of experience creating user-centric, delightful, and human experiences." />
+	<title>Justin - Software Developer</title>
+	<meta name="description" content="Software developer passionate about leveraging data, technology, and design to create impactful solutions." />
 </svelte:head>
 
 <div class="min-h-screen bg-gray-50">
