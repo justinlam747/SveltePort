@@ -79,16 +79,19 @@
 
 <style>
 	.filter-tab {
-		@apply px-6 py-3 rounded-full border-2 border-gray-200 text-gray-600 font-medium 
-		       transition-all duration-300 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50;
+		@apply px-6 py-3 rounded-full border-2 border-gray-200 text-gray-600 font-medium transition-all duration-300;
+	}
+	
+	.filter-tab:hover {
+		@apply border-blue-400 text-blue-600 bg-blue-50;
 	}
 	
 	.filter-tab.active {
-		@apply bg-blue-600 border-blue-600 text-white shadow-lg transform;
+		@apply bg-blue-600 border-blue-600 text-white shadow-lg;
 	}
 	
 	.filter-tab:hover:not(.active) {
-		@apply scale-105;
+		transform: scale(1.05);
 	}
 </style>
 

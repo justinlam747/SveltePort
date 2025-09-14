@@ -26,19 +26,7 @@ export const projects = [
 		type: 'software',
 		link: 'https://www.gpaconnect.me/'
 	},
-	{
-		id: 3,
-		title: 'Pacman Clone',
-		subtitle: 'Course Project – 2025',
-		description: 'Developed a console-based Pacman clone in C with dynamic map loading, memory allocation, and error handling.',
-		image: 'Pacman1.png',
-		color: 'bg-gradient-to-br from-yellow-400 to-yellow-600',
-		technologies: ['C', 'Memory Management', 'Unit Testing'],
-		category: 'Object Oriented Programming',
-		year: '2025',
-		type: 'software',
-		link: 'https://github.com/justinlam747/APSC142-Pacman'
-	},
+	
 	{
 		id: 4,
 		title: 'Plant Incubator',
@@ -55,7 +43,7 @@ export const projects = [
 	{
 		id: 5,
 		title: 'Water Treatment Plant',
-		subtitle: 'Course Project – 2024',
+		subtitle: 'Mechatronics Project – 2024',
 		description: 'Designed a servo-driven aluminum sulfate dispensing assembly to improve water purification.',
 		image: 'WaterFiltration.jpg',
 		color: 'bg-gradient-to-br from-blue-400 to-cyan-500',
@@ -85,7 +73,7 @@ export const projects = [
 		description: 'Built a responsive event website, boosting participant engagement by 40%.',
 		image: 'CAI.png',
 		color: 'bg-gradient-to-br from-indigo-400 to-indigo-600',
-		technologies: ['HTML', 'CSS', 'Event Leadership', 'Project Management'],
+		technologies: ['Java', 'JFrame'],
 		category: 'Application Development',
 		year: '2023',
 		type: 'software',
@@ -98,10 +86,23 @@ export const projects = [
 		description: 'Built a responsive event website, boosting participant engagement by 40%.',
 		image: 'LaptopStore.png',
 		color: 'bg-gradient-to-br from-indigo-400 to-indigo-600',
-		technologies: ['HTML', 'CSS', 'Event Leadership', 'Project Management'],
+		technologies: ['Java', 'JFrame'],
 		category: 'Application Development',
 		year: '2023',
 		type: 'software',
 		link: 'https://github.com/justinlam747/ComputerStore'
+	},
+	{
+		id: 9,
+		title: 'Smaller2',
+		subtitle: 'Terminal Project – 2022',
+		description: 'Built a responsive event website, boosting participant engagement by 40%.',
+		image: 'Smaller2.png',
+		color: 'bg-gradient-to-br from-indigo-400 to-indigo-600',
+		technologies: ['Python'],
+		category: 'Big2 Terminal Card Game',
+		year: '2023',
+		type: 'software',
+		link: 'https://github.com/justinlam747/SmallerTwo'
 	}
 ];
