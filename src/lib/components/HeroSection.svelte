@@ -186,14 +186,12 @@
 
 <style>
 	.hero-title-container,
-	.hero-description-container,
-	.hero-cta-container {
+	.hero-description-container {
 		overflow: hidden;
 	}
 	
 	.hero-title,
-	.hero-description,
-	.hero-cta {
+	.hero-description {
 		will-change: clip-path, transform;
 	}
 	

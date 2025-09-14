@@ -58,7 +58,7 @@ export const projects = [
 		technologies: ['Arduino IDE', 'Servo Motors', 'Control Systems'],
 		category: 'Automation & Control',
 		year: '2024',
-		link: 'https://github.com/justinlam747'
+		link: 'https://github.com/justinlam747/WaterFiltration'
 	},
 	{
 		id: 6,
@@ -70,6 +70,18 @@ export const projects = [
 		technologies: ['HTML', 'CSS', 'Event Leadership', 'Project Management'],
 		category: 'Event Leadership & Development',
 		year: '2023',
-		link: 'https://github.com/justinlam747'
+		link: 'https://edge-hacks.vercel.app/'
+	},
+	{
+		id: 7,
+		title: 'OOP eLearning App',
+		subtitle: 'Course Project – 2023',
+		description: 'Built a responsive event website, boosting participant engagement by 40%.',
+		image: 'EdgeHacks2.png',
+		color: 'bg-gradient-to-br from-indigo-400 to-indigo-600',
+		technologies: ['HTML', 'CSS', 'Event Leadership', 'Project Management'],
+		category: 'Event Leadership & Development',
+		year: '2023',
+		link: 'https://edge-hacks.vercel.app/'
 	}
 ];
