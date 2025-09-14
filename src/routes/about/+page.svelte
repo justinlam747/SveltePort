@@ -15,20 +15,19 @@
 	};
 
 	onMount(() => {
+		// Set initial state for animation, then animate in
+		gsap.set(['.about-header', '.skills-section', '.tools-section'], { opacity: 0, y: 30 });
 		
 		// Page entrance animation - staggered reveal
 		gsap.timeline()
-			.fromTo('.about-header', 
-				{ opacity: 0, y: 30 }, 
+			.to('.about-header', 
 				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
 			)
-			.fromTo('.skills-section', 
-				{ opacity: 0, y: 30 }, 
+			.to('.skills-section', 
 				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 
 				'-=0.4'
 			)
-			.fromTo('.tools-section', 
-				{ opacity: 0, y: 30 }, 
+			.to('.tools-section', 
 				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 
 				'-=0.4'
 			);

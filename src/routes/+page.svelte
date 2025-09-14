@@ -10,14 +10,15 @@
 
 
 	onMount(() => {
+		// Set initial state for animation, then animate in
+		gsap.set(['.hero-section', '.projects-section'], { opacity: 0, y: 30 });
+		
 		// Page entrance animation
 		gsap.timeline()
-			.fromTo('.hero-section', 
-				{ opacity: 0, y: 30 }, 
+			.to('.hero-section', 
 				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
 			)
-			.fromTo('.projects-section', 
-				{ opacity: 0, y: 30 }, 
+			.to('.projects-section', 
 				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 
 				'-=0.4'
 			);

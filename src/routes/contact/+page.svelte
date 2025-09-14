@@ -35,10 +35,12 @@
 	}
 
 	onMount(async () => {
+		// Set initial state for animation, then animate in
+		gsap.set('.contact-content', { opacity: 0, y: 30 });
+		
 		// Page entrance animation
 		gsap.timeline()
-			.fromTo('.contact-content', 
-				{ opacity: 0, y: 30 }, 
+			.to('.contact-content', 
 				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
 			);
 	});
