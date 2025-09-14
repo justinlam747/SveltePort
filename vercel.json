@@ -2,6 +2,11 @@
   "framework": "sveltekit",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
+  "functions": {
+    "src/routes/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
