@@ -2,8 +2,17 @@
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
 
-	export let data; // Server-side loaded data
-	$: personalInfo = data.personalInfo || {};
+	// Static personal info
+	const personalInfo = {
+		name: "Justin",
+		title: "Software Developer",
+		bio: "I'm passionate about leveraging data, technology, and design to create impactful solutions. I enjoy analyzing spatial and numerical data through GIS and data analytics, while also building software and SaaS products that turn complex problems into intuitive experiences.",
+		email: "jhylam@uwaterloo.ca",
+		social: {
+			linkedin: "https://linkedin.com/in/justinlam747",
+			github: "https://github.com/justinlam747"
+		}
+	};
 
 	onMount(() => {
 		
