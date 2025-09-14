@@ -58,15 +58,7 @@
 		}, 3000); // Change phrase every 3 seconds
 	}
 
-	onMount(() => {
-		// Temporarily disabled all animations to fix hydration issues
-		// Will re-enable after fixing the core problem
-		
-		// Start scrambling text without delay
-		setTimeout(() => {
-			startScrambling();
-		}, 1000);
-	});
+	// Removed onMount to test hydration - no scrambling for now
 	
 	// Cleanup on component destroy
 	import { onDestroy } from 'svelte';
