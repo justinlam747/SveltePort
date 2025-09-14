@@ -59,83 +59,13 @@
 	}
 
 	onMount(() => {
-		// Split text into words for staggered animation
-		const titleWords = document.querySelectorAll('.hero-title .word');
+		// Temporarily disabled all animations to fix hydration issues
+		// Will re-enable after fixing the core problem
 		
-		// Set initial states for animation
-		gsap.set('.hero-title', { 
-			clipPath: 'inset(100% 0% 0% 0%)',
-			y: 30
-		});
-		gsap.set('.hero-description', { 
-			clipPath: 'inset(100% 0% 0% 0%)',
-			y: 20
-		});
-		gsap.set('.hero-cta', { 
-			clipPath: 'inset(100% 0% 0% 0%)',
-			y: 20
-		});
-		gsap.set('.social-links', { opacity: 0, x: -20 });
-		
-		// Hero text animation with clip-path reveal
-		const tl = gsap.timeline();
-		
-		// Animate title words with staggered clip-path reveal
-		tl.to('.hero-title', 
-			{ 
-				clipPath: 'inset(0% 0% 0% 0%)',
-				y: 0,
-				duration: 1.2, 
-				ease: 'power3.out', 
-				delay: 0.3
-			}
-		)
-		.to('.hero-description', 
-			{ 
-				clipPath: 'inset(0% 0% 0% 0%)',
-				y: 0,
-				duration: 0.8, 
-				ease: 'power2.out'
-			}, 
-			'-=0.6'
-		)
-		.to('.hero-cta', 
-			{ 
-				clipPath: 'inset(0% 0% 0% 0%)',
-				y: 0,
-				duration: 0.6, 
-				ease: 'power2.out'
-			}, 
-			'-=0.4'
-		)
-		.to('.social-links', 
-			{ opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }, 
-			'-=0.4'
-		);
-
-		// Profile image animation
-		if (imageRef) {
-			gsap.set(imageRef, { opacity: 0, scale: 0.8, rotation: -5 });
-			gsap.to(imageRef, 
-				{ opacity: 1, scale: 1, rotation: 0, duration: 1, ease: 'power2.out', delay: 0.4 }
-			);
-		}
-
-		// Floating animation for profile image
-		if (imageRef) {
-			gsap.to(imageRef, {
-				y: -10,
-				duration: 2,
-				ease: 'power1.inOut',
-				yoyo: true,
-				repeat: -1
-			});
-		}
-		
-		// Start scrambling text after initial animations
+		// Start scrambling text without delay
 		setTimeout(() => {
 			startScrambling();
-		}, 2500); // Start after hero animations complete
+		}, 1000);
 	});
 	
 	// Cleanup on component destroy

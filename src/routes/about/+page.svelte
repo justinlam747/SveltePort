@@ -15,22 +15,12 @@
 	};
 
 	onMount(() => {
-		// Set initial state for animation, then animate in
-		gsap.set(['.about-header', '.skills-section', '.tools-section'], { opacity: 0, y: 30 });
-		
-		// Page entrance animation - staggered reveal
-		gsap.timeline()
-			.to('.about-header', 
-				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
-			)
-			.to('.skills-section', 
-				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 
-				'-=0.4'
-			)
-			.to('.tools-section', 
-				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 
-				'-=0.4'
-			);
+		// Temporarily disabled animations to fix hydration
+		// gsap.set(['.about-header', '.skills-section', '.tools-section'], { opacity: 0, y: 30 });
+		// gsap.timeline()
+		// 	.to('.about-header', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' })
+		// 	.to('.skills-section', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.4')
+		// 	.to('.tools-section', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.4');
 	});
 </script>
 

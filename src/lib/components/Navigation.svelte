@@ -10,12 +10,9 @@
 	];
 
 	onMount(() => {
-		// Set initial state for animation, then animate in
-		gsap.set('.nav-item', { opacity: 0, y: -10 });
-		
-		gsap.to('.nav-item', 
-			{ opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 0.2 }
-		);
+		// Temporarily disabled animations to fix hydration
+		// gsap.set('.nav-item', { opacity: 0, y: -10 });
+		// gsap.to('.nav-item', { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 0.2 });
 	});
 </script>
 
