@@ -9,9 +9,18 @@
 	const projects = allProjects.slice(0, 4);
 
 
-	// Content loads immediately with SSR
 	onMount(() => {
-		// Page content visible immediately
+		// Clean animations with CSR (no hydration issues)
+		gsap.timeline()
+			.fromTo('.hero-section', 
+				{ opacity: 0, y: 20 }, 
+				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+			)
+			.fromTo('.projects-section', 
+				{ opacity: 0, y: 20 }, 
+				{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 
+				'-=0.6'
+			);
 	});
 </script>
 

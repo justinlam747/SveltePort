@@ -58,7 +58,47 @@
 		}, 3000); // Change phrase every 3 seconds
 	}
 
-	// Removed onMount to test hydration - no scrambling for now
+	onMount(() => {
+		// Beautiful hero animations with CSR
+		const tl = gsap.timeline();
+		
+		tl.fromTo('.hero-title', 
+			{ clipPath: 'inset(100% 0% 0% 0%)', y: 30 }, 
+			{ clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.2, ease: 'power3.out', delay: 0.3 }
+		)
+		.fromTo('.hero-description', 
+			{ clipPath: 'inset(100% 0% 0% 0%)', y: 20 }, 
+			{ clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 0.8, ease: 'power2.out' }, 
+			'-=0.6'
+		)
+		.fromTo('.social-links', 
+			{ opacity: 0, x: -20 }, 
+			{ opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }, 
+			'-=0.4'
+		);
+
+		// Profile image animation
+		if (imageRef) {
+			gsap.fromTo(imageRef, 
+				{ opacity: 0, scale: 0.8, rotation: -5 }, 
+				{ opacity: 1, scale: 1, rotation: 0, duration: 1, ease: 'power2.out', delay: 0.4 }
+			);
+
+			// Floating animation
+			gsap.to(imageRef, {
+				y: -10,
+				duration: 2,
+				ease: 'power1.inOut',
+				yoyo: true,
+				repeat: -1
+			});
+		}
+		
+		// Start scrambling text
+		setTimeout(() => {
+			startScrambling();
+		}, 2500);
+	});
 	
 	// Cleanup on component destroy
 	import { onDestroy } from 'svelte';

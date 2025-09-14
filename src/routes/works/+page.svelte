@@ -6,9 +6,11 @@
 
 
 	onMount(() => {
-		// Temporarily disabled animations to fix hydration
-		// gsap.set('.works-content', { opacity: 0, y: 30 });
-		// gsap.timeline().to('.works-content', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' });
+		// Smooth page animation with CSR
+		gsap.fromTo('.works-content', 
+			{ opacity: 0, y: 30 }, 
+			{ opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+		);
 	});
 </script>
 
