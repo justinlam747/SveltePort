@@ -9,7 +9,10 @@
 	const projects = allProjects.slice(0, 4);
 
 
-	// Removed onMount to test hydration
+	// Content loads immediately with SSR
+	onMount(() => {
+		// Page content visible immediately
+	});
 </script>
 
 <svelte:head>

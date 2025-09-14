@@ -10,18 +10,9 @@
 		
 	];
 
-	// Hydration-safe animations
+	// Navigation loads immediately, no animations
 	onMount(() => {
-		const unsubscribe = mounted.subscribe((isMounted) => {
-			if (isMounted) {
-				gsap.fromTo('.nav-item', 
-					{ opacity: 0, y: -10 }, 
-					{ opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 0.2 }
-				);
-			}
-		});
-
-		return unsubscribe;
+		// Navigation is always visible
 	});
 </script>
 

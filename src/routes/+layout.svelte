@@ -5,19 +5,9 @@
 	import Navigation from '$lib/components/Navigation.svelte';
 	import { mounted } from '$lib/stores/mounted.js';
 
-	// Hydration-safe animations
+	// Minimal approach - no animations on layout for now
 	onMount(() => {
-		const unsubscribe = mounted.subscribe((isMounted) => {
-			if (isMounted) {
-				// Only run animations after hydration is complete
-				gsap.fromTo('.page-content', 
-					{ opacity: 0, y: 20 }, 
-					{ opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
-				);
-			}
-		});
-
-		return unsubscribe;
+		// Layout loads content immediately, no animations
 	});
 </script>
 
