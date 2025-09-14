@@ -79,7 +79,8 @@
 
 <style>
 	.filter-tab {
-		@apply px-6 py-3 rounded-full border-2 border-gray-200 text-gray-600 font-medium transition-all duration-300 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50;
+		@apply px-6 py-3 rounded-full border-2 border-gray-200 text-gray-600 font-medium 
+		       transition-all duration-300 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50;
 	}
 	
 	.filter-tab.active {
