@@ -5,9 +5,11 @@
 	import Navigation from '$lib/components/Navigation.svelte';
 
 	onMount(() => {
+		// Set initial state for animation, then animate in
+		gsap.set('.page-content', { opacity: 0, y: 20 });
+		
 		// Initialize GSAP animations
-		gsap.fromTo('.page-content', 
-			{ opacity: 0, y: 20 }, 
+		gsap.to('.page-content', 
 			{ opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
 		);
 	});

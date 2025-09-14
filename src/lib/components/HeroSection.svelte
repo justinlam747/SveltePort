@@ -25,6 +25,7 @@
 	
 	// Scramble text animation function
 	function scrambleText(element, newText, duration = 800) {
+		if (!element) return;
 		const originalText = element.textContent;
 		const chars = '!<>-_\\/[]{}—=+*^?#________';
 		let iteration = 0;
@@ -50,6 +51,7 @@
 	
 	// Start the phrase cycling
 	function startScrambling() {
+		if (!scrambleRef) return;
 		scrambleInterval = setInterval(() => {
 			currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
 			scrambleText(scrambleRef, phrases[currentPhraseIndex]);
@@ -60,15 +62,26 @@
 		// Split text into words for staggered animation
 		const titleWords = document.querySelectorAll('.hero-title .word');
 		
+		// Set initial states for animation
+		gsap.set('.hero-title', { 
+			clipPath: 'inset(100% 0% 0% 0%)',
+			y: 30
+		});
+		gsap.set('.hero-description', { 
+			clipPath: 'inset(100% 0% 0% 0%)',
+			y: 20
+		});
+		gsap.set('.hero-cta', { 
+			clipPath: 'inset(100% 0% 0% 0%)',
+			y: 20
+		});
+		gsap.set('.social-links', { opacity: 0, x: -20 });
+		
 		// Hero text animation with clip-path reveal
 		const tl = gsap.timeline();
 		
 		// Animate title words with staggered clip-path reveal
-		tl.fromTo('.hero-title', 
-			{ 
-				clipPath: 'inset(100% 0% 0% 0%)',
-				y: 30
-			}, 
+		tl.to('.hero-title', 
 			{ 
 				clipPath: 'inset(0% 0% 0% 0%)',
 				y: 0,
@@ -77,11 +90,7 @@
 				delay: 0.3
 			}
 		)
-		.fromTo('.hero-description', 
-			{ 
-				clipPath: 'inset(100% 0% 0% 0%)',
-				y: 20
-			}, 
+		.to('.hero-description', 
 			{ 
 				clipPath: 'inset(0% 0% 0% 0%)',
 				y: 0,
@@ -90,11 +99,7 @@
 			}, 
 			'-=0.6'
 		)
-		.fromTo('.hero-cta', 
-			{ 
-				clipPath: 'inset(100% 0% 0% 0%)',
-				y: 20
-			}, 
+		.to('.hero-cta', 
 			{ 
 				clipPath: 'inset(0% 0% 0% 0%)',
 				y: 0,
@@ -103,26 +108,29 @@
 			}, 
 			'-=0.4'
 		)
-		.fromTo('.social-links', 
-			{ opacity: 0, x: -20 }, 
+		.to('.social-links', 
 			{ opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }, 
 			'-=0.4'
 		);
 
 		// Profile image animation
-		gsap.fromTo(imageRef, 
-			{ opacity: 0, scale: 0.8, rotation: -5 }, 
-			{ opacity: 1, scale: 1, rotation: 0, duration: 1, ease: 'power2.out', delay: 0.4 }
-		);
+		if (imageRef) {
+			gsap.set(imageRef, { opacity: 0, scale: 0.8, rotation: -5 });
+			gsap.to(imageRef, 
+				{ opacity: 1, scale: 1, rotation: 0, duration: 1, ease: 'power2.out', delay: 0.4 }
+			);
+		}
 
 		// Floating animation for profile image
-		gsap.to(imageRef, {
-			y: -10,
-			duration: 2,
-			ease: 'power1.inOut',
-			yoyo: true,
-			repeat: -1
-		});
+		if (imageRef) {
+			gsap.to(imageRef, {
+				y: -10,
+				duration: 2,
+				ease: 'power1.inOut',
+				yoyo: true,
+				repeat: -1
+			});
+		}
 		
 		// Start scrambling text after initial animations
 		setTimeout(() => {
