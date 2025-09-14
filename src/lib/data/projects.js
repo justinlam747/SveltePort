@@ -10,6 +10,7 @@ export const projects = [
 		technologies: ['React', 'Tailwind', 'Render', 'Axios', 'ExpressJS', 'SQL'],
 		category: 'Full Stack Development',
 		year: '2025',
+		type: 'software',
 		link: 'https://glazinggorillagames.com/'
 	},
 	{
@@ -22,6 +23,7 @@ export const projects = [
 		technologies: ['React', 'MongoDB', 'Express', 'Node.js', 'JWT', 'bcrypt.js', 'Recharts'],
 		category: 'Full Stack Web App',
 		year: '2025',
+		type: 'software',
 		link: 'https://www.gpaconnect.me/'
 	},
 	{
@@ -34,6 +36,7 @@ export const projects = [
 		technologies: ['C', 'Memory Management', 'Unit Testing'],
 		category: 'Object Oriented Programming',
 		year: '2025',
+		type: 'software',
 		link: 'https://github.com/justinlam747/APSC142-Pacman'
 	},
 	{
@@ -46,6 +49,7 @@ export const projects = [
 		technologies: ['Python', 'OpenCV', 'Arduino', 'Flask', 'MongoDB'],
 		category: 'IoT & Computer Vision',
 		year: '2025',
+		type: 'hardware',
 		link: 'https://devpost.com/software/wateryoudoing-cjnzhp'
 	},
 	{
@@ -58,6 +62,7 @@ export const projects = [
 		technologies: ['Arduino IDE', 'Servo Motors', 'Control Systems'],
 		category: 'Automation & Control',
 		year: '2024',
+		type: 'hardware',
 		link: 'https://github.com/justinlam747/WaterFiltration'
 	},
 	{
@@ -70,18 +75,33 @@ export const projects = [
 		technologies: ['HTML', 'CSS', 'Event Leadership', 'Project Management'],
 		category: 'Event Leadership & Development',
 		year: '2023',
+		type: 'software',
 		link: 'https://edge-hacks.vercel.app/'
 	},
 	{
 		id: 7,
 		title: 'OOP eLearning App',
-		subtitle: 'Course Project – 2023',
+		subtitle: 'OOP Project – 2023',
 		description: 'Built a responsive event website, boosting participant engagement by 40%.',
-		image: 'EdgeHacks2.png',
+		image: 'CAI.png',
 		color: 'bg-gradient-to-br from-indigo-400 to-indigo-600',
 		technologies: ['HTML', 'CSS', 'Event Leadership', 'Project Management'],
-		category: 'Event Leadership & Development',
+		category: 'Application Development',
 		year: '2023',
-		link: 'https://edge-hacks.vercel.app/'
+		type: 'software',
+		link: 'https://github.com/justinlam747/JavaCAI-Learning-System'
+	},
+	{
+		id: 8,
+		title: 'Computer Store',
+		subtitle: 'OOP Project – 2023',
+		description: 'Built a responsive event website, boosting participant engagement by 40%.',
+		image: 'LaptopStore.png',
+		color: 'bg-gradient-to-br from-indigo-400 to-indigo-600',
+		technologies: ['HTML', 'CSS', 'Event Leadership', 'Project Management'],
+		category: 'Application Development',
+		year: '2023',
+		type: 'software',
+		link: 'https://github.com/justinlam747/ComputerStore'
 	}
 ];
