@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
+	import { mounted } from '$lib/stores/mounted.js';
 
 	let navItems = [
 		{ name: 'Home', href: '/' },
@@ -9,7 +10,19 @@
 		
 	];
 
-	// Removed onMount to test hydration
+	// Hydration-safe animations
+	onMount(() => {
+		const unsubscribe = mounted.subscribe((isMounted) => {
+			if (isMounted) {
+				gsap.fromTo('.nav-item', 
+					{ opacity: 0, y: -10 }, 
+					{ opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 0.2 }
+				);
+			}
+		});
+
+		return unsubscribe;
+	});
 </script>
 
 <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">

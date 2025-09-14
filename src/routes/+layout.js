@@ -1,3 +1,3 @@
-// Disable SSR to prevent hydration issues temporarily
-export const ssr = false;
+// Re-enable SSR with proper hydration handling
+export const ssr = true;
 export const prerender = false;
